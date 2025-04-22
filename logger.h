@@ -3,6 +3,7 @@
 
 #include <QFile>
 #include <QTextStream>
+#include <QDateTime>
 
 class Logger {
 public:
@@ -17,7 +18,8 @@ public:
     void logMessage(const std::string &message) {
         if (logFile.isOpen()) {
             QTextStream out(&logFile);
-            out << QString::fromStdString(message) << "\n";
+            QString timeStamp = QDateTime::currentDateTime().toString("yyyy-MM-dd HH:mm:ss");
+            out << timeStamp << " - " << QString::fromStdString(message) << "\n";
             out.flush();
         }
     }

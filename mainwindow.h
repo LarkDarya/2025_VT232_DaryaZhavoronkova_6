@@ -31,13 +31,16 @@ private slots:
 
     void on_pushButton_3_clicked();
 
+    void directoryChanged(const QString &path);
+    void fileChanged(const QString &path);
+
 private:
     Ui::MainWindow *ui;
     QFileSystemWatcher *watcher;  // Для отслеживания изменений в директории
     QString watchedDirectory;       // Путь к отслеживаемой директории
     SmartPoint<Logger> logger;
     QSet<QString> previousFiles;
-
+    QTextEdit *textEdit;
 
     void updateFileList();
 };

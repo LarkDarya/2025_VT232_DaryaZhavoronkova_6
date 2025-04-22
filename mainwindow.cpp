@@ -1,18 +1,16 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include <QFileDialog>
-#include <QMessageBox>
-#include <QDirIterator>
-#include <QTextStream>
-#include <QDebug>
-#include <QFileSystemWatcher>
-#include <QDir>
-#include <QString>
-#include <QSet>
-#include <QFileInfo>
-#include <QDateTime>
-#include <QTextEdit>
-#include <QFile>
+#include <QFileDialog> // Диалоговые окна для выбора файлов и директорий
+#include <QMessageBox> // Отображает окна с сообщениями, предупреждениями и вопросами
+#include <QDirIterator> // Упрощает итерацию по файлам и папкам в заданной директории
+#include <QTextStream> // Способ чтения и записи текстовых данных в файлы и другие потоки
+#include <QDebug> // Средства для отладки, включая функции для вывода отладочной информации в консоль
+#include <QFileSystemWatcher> // Позволяет отслеживать изменения в файловой системе
+#include <QDir> // Представляет директорию и методы для работы с файловой системой.
+#include <QString> // Класс для работы со строками в Qt, поддерживающий Unicode
+#include <QSet> // Реализация множества, позволяющая хранить уникальные элементы
+#include <QFileInfo> // Предоставляет информацию о файлах
+#include <QTextEdit> // Для редактирования и отображения многострочного текста
 
 
 MainWindow::MainWindow(QWidget *parent)
@@ -25,13 +23,15 @@ MainWindow::MainWindow(QWidget *parent)
 
     // Блокируем изменение текста в QTextEdit
     ui->textEdit->setReadOnly(true);
+
+    connect(watcher, &QFileSystemWatcher::directoryChanged, this, &MainWindow::directoryChanged);
+    connect(watcher, &QFileSystemWatcher::fileChanged, this, &MainWindow::fileChanged);
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
 }
-
 
 void MainWindow::on_pushButton_clicked()
 {
@@ -108,4 +108,59 @@ void MainWindow::on_pushButton_3_clicked()
         QMessageBox::warning(this, "Ошибка", "Не удалось открыть файл для удаления содержимого.");
     }
 }
+
+void MainWindow::directoryChanged(const QString &path)
+{
+    QSet<QString> currentFiles;
+    QDirIterator it(path, QDir::Files | QDir::NoDotAndDotDot, QDirIterator::Subdirectories);
+    while (it.hasNext()) {
+        currentFiles.insert(it.next());
+    }
+
+    QSet<QString> removedFiles = previousFiles - currentFiles;
+    QSet<QString> addedFiles = currentFiles - previousFiles;
+
+    // Создаем копии для итерации и удаления элементов
+    QSet<QString> removedFilesCopy = removedFiles;
+    QSet<QString> addedFilesCopy = addedFiles;
+
+    // Проверяем переименования
+    for (const QString &removedFile : removedFilesCopy) {
+        for (const QString &addedFile : addedFilesCopy) {
+            if (QFileInfo(removedFile).fileName() != QFileInfo(addedFile).fileName()) {
+                logger->logMessage("Файл переименован: " + removedFile.toStdString() + " в " + addedFile.toStdString());
+                removedFiles.remove(removedFile);
+                addedFiles.remove(addedFile);
+                watcher->removePath(removedFile);
+                watcher->addPath(addedFile);
+
+                break; // Переходим к следующему удаленному файлу
+            }
+        }
+    }
+
+    // Обрабатываем оставшиеся добавленные и удаленные файлы
+    for (const QString &addedFile : addedFiles) {
+        logger->logMessage("Файл создан: " + addedFile.toStdString());
+        watcher->addPath(addedFile);
+    }
+
+    for (const QString &removedFile : removedFiles) {
+        logger->logMessage("Файл удалён: " + removedFile.toStdString());
+        watcher->removePath(removedFile);
+
+    }
+
+    previousFiles = currentFiles;
+}
+
+void MainWindow::fileChanged(const QString &path)
+{
+    QFileInfo fileInfo(path);
+    // Проверяем, существует ли файл и изменилось ли он
+    if (fileInfo.exists()) {
+        logger->logMessage("Файл изменен: " + fileInfo.filePath().toStdString());
+    }
+}
+
 
