@@ -13,6 +13,7 @@ SOURCES += \
     mainwindow.cpp
 
 HEADERS += \
+    logger.h \
     mainwindow.h
 
 FORMS += \
