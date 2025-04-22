@@ -6,25 +6,234 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>717</width>
-    <height>363</height>
+    <width>751</width>
+    <height>464</height>
    </rect>
   </property>
+  <property name="font">
+   <font>
+    <family>Times New Roman</family>
+    <pointsize>9</pointsize>
+    <italic>true</italic>
+   </font>
+  </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Mini Git</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background: qlineargradient(
+    x1: 0, y1: 0, 
+    x2: 1, y2: 1, 
+    stop: 0 #FFB608, 
+    stop: 0.5 #FF2553, 
+    stop: 1 #00103C
+);
+border-radius: 10px;</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QPushButton" name="pushButton">
     <property name="geometry">
      <rect>
-      <x>260</x>
-      <y>200</y>
-      <width>93</width>
-      <height>29</height>
+      <x>10</x>
+      <y>40</y>
+      <width>221</width>
+      <height>78</height>
      </rect>
     </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="font">
+     <font>
+      <family>Times New Roman</family>
+      <pointsize>14</pointsize>
+      <italic>true</italic>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="toolTip">
+     <string/>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+    background: transparent;    /* Без фона */
+    color: white;               /* Цвет текста */
+    border: 2px solid white;    /* Белая рамка */
+    border-radius: 35px;        /* Закругленные углы */
+    padding: 11px;              /* Отступы */
+}
+
+QPushButton:hover {
+    background: transparent;    /* Без фона при наведении */
+    border: 3px solid white;     /* Увеличенная белая рамка при наведении */
+    text-decoration: underline;   /* Подчеркнутый текст при наведении */
+}
+
+
+
+
+</string>
+    </property>
     <property name="text">
-     <string>PushButton</string>
+     <string>Выбрать 
+директорию</string>
+    </property>
+    <property name="checkable">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_4">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>180</y>
+      <width>221</width>
+      <height>78</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="font">
+     <font>
+      <family>Times New Roman</family>
+      <pointsize>14</pointsize>
+      <italic>true</italic>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="toolTip">
+     <string/>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+    background: transparent;    /* Без фона */
+    color: white;               /* Цвет текста */
+    border: 2px solid white;    /* Белая рамка */
+    border-radius: 37px;        /* Закругленные углы */
+    padding: 5px;              /* Отступы */
+}
+
+QPushButton:hover {
+    background: transparent;    /* Без фона при наведении */
+    border: 3px solid white;     /* Увеличенная белая рамка при наведении */
+    text-decoration: underline;   /* Подчеркнутый текст при наведении */
+}
+
+
+
+
+</string>
+    </property>
+    <property name="text">
+     <string>Вывести 
+изменения</string>
+    </property>
+    <property name="checkable">
+     <bool>false</bool>
+    </property>
+   </widget>
+   <widget class="QGroupBox" name="groupBox">
+    <property name="geometry">
+     <rect>
+      <x>250</x>
+      <y>20</y>
+      <width>491</width>
+      <height>391</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Times New Roman</family>
+      <pointsize>11</pointsize>
+      <italic>true</italic>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QGroupBox {
+    background: transparent;    /* Без фона */
+    color: white;               /* Цвет текста */
+    border: 2px solid white;    /* Белая рамка */
+    border-radius: 10px;        /* Закругленные углы */
+    padding: 11px;              /* Отступы */
+}</string>
+    </property>
+    <property name="title">
+     <string>Окно изменений</string>
+    </property>
+    <widget class="QTextEdit" name="textEdit">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>20</y>
+       <width>481</width>
+       <height>361</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QTextEdit {
+    background-color: white;
+    color: #00103C;
+    font-family: 'Times New Roman';
+    font-size: 12pt;
+    padding: 5px;
+}</string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QPushButton" name="pushButton_3">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>320</y>
+      <width>221</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="font">
+     <font>
+      <family>Times New Roman</family>
+      <pointsize>14</pointsize>
+      <italic>true</italic>
+     </font>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+    background: transparent;    /* Без фона */
+    color: white;               /* Цвет текста */
+    border: 2px solid white;    /* Белая рамка */
+    border-radius: 35px;        /* Закругленные углы */
+    padding: 6px;              /* Отступы */
+}
+
+QPushButton:hover {
+    background: transparent;    /* Без фона при наведении */
+    border: 3px solid white;     /* Увеличенная белая рамка при наведении */
+    text-decoration: underline;   /* Подчеркнутый текст при наведении */
+}</string>
+    </property>
+    <property name="text">
+     <string>Очистить 
+файл</string>
     </property>
    </widget>
   </widget>
@@ -33,7 +242,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>717</width>
+     <width>751</width>
      <height>26</height>
     </rect>
    </property>
