@@ -71,3 +71,41 @@ void MainWindow::updateFileList()
     }
 }
 
+void MainWindow::on_pushButton_4_clicked()
+{
+    // Путь к файлу записи
+    QString filePath = "F:\\Даша\\Репозиторий\\Mini_Git\\git.txt";
+
+    QFile file(filePath);
+
+    // Открываем файл в режиме чтения
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        QMessageBox::warning(this, "Ошибка", "Не удалось открыть файл");
+        return;
+    }
+
+    // Читаем содержимое файла
+    QTextStream in(&file);
+    QString fileContent = in.readAll();
+
+    // Устанавливаем содержимое в QLabel
+    ui->textEdit->setText(fileContent);
+}
+
+void MainWindow::on_pushButton_3_clicked()
+{
+    // Путь к файлу
+    QString filePath = "F:\\Даша\\Репозиторий\\Mini_Git\\git.txt";
+
+    QFile file(filePath);
+
+    // Открываем файл в режиме записи (это очистит его содержимое)
+    if (file.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
+        // Закрываем файл после открытия
+        file.close();
+        QMessageBox::information(this, "Успех", "Содержимое файла успешно удалено.");
+    } else {
+        QMessageBox::warning(this, "Ошибка", "Не удалось открыть файл для удаления содержимого.");
+    }
+}
+
