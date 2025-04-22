@@ -14,7 +14,8 @@ SOURCES += \
 
 HEADERS += \
     logger.h \
-    mainwindow.h
+    mainwindow.h \
+    smartpoint.h
 
 FORMS += \
     mainwindow.ui
